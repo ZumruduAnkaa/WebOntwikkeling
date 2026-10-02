@@ -13,5 +13,3 @@ for (let index = 1; index <= aantal; index++) {
 
     console.log(`${naam} heeft een BMI van ${bmi.toFixed(2)}`);
 }
-
-
