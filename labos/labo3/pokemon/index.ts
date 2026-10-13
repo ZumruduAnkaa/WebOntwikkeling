@@ -35,22 +35,30 @@ let input : string = "";
 
 do {
     input = readline.question(`Welke pokemon wil je in je team? [0-20]: `);
-    let index = Number(input);
+    let index : number = Number(input);
 
     if (input !== "STOP") {
-        let alInTeam: boolean = false;
 
-        for (let i = 0; i < team.length; i++) {
-            if (team[i] === pokemon[index]) {
-                alInTeam = true;
+        if (index >= 0 && index < pokemon.length) {
+            let alInTeam: boolean = false;
+
+
+            for (let i = 0; i < team.length; i++) {
+                if (team[i] === pokemon[index]) {
+                    alInTeam = true;
+                }
             }
+
+            if (alInTeam) {
+                console.log("Deze pokemon zit al in je team.");
+            }
+            else{
+                team.push(pokemon[index]!);
+            }
+        } else {
+            console.log("Deze pokemon ken ik niet")
         }
 
-        if (alInTeam) {
-            console.log("Deze pokemon zit al in je team.");
-        }else{
-            team.push(pokemon[index]!);
-        }
     }
 } while (input !== "STOP");
 
