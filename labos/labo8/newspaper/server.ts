@@ -115,6 +115,7 @@ const articles: NewsArticle[] = [
     }
 ];
 
+app.use(express.static("public"))
 
 app.get("/", (req,res) => {
     res.render("index", {
@@ -125,15 +126,24 @@ app.get("/", (req,res) => {
 });
 
 
-for (let topic of topics) {
-    app.get(`/${topic}`, (req,res) => {
-        res.render("index", {
-            title: topic,
-            topics: topics,
-            articles: articles.filter((article) => article.topic === topic)
+
+app.get("/:topic", (req,res) => {
+    let topic = req.params.topic;
+
+    if (!topics.includes(topic)) {
+        res.status(404).render("404", {
+            title: "Pagina niet gevonden",
+            topics: topics
         });
+        return;
+    }
+
+    res.render("index", {
+        title: topic,
+        topics: topics,
+        articles: articles.filter((article) => article.topic === topic)
     });
-}
+});
 
 
 app.use((req, res) => {
