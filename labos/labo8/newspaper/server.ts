@@ -125,6 +125,26 @@ app.get("/", (req,res) => {
     });
 });
 
+app.get("/search", (req,res) => {
+    let q : string = typeof req.query.q === "string" ? req.query.q : "";
+
+    let results : NewsArticle[] = [];
+
+    if (q !== "") {
+        results = articles.filter((article) =>
+            article.title.toLowerCase().includes(q.toLowerCase()) ||
+            article.content.toLowerCase().includes(q.toLowerCase())
+        );
+    };
+
+    res.render("search", {
+        title: "Zoeken",
+        topics: topics,
+        articles: results,
+        q: q
+    });
+
+});
 
 
 app.get("/:topic", (req,res) => {

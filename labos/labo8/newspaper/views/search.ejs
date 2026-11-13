@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<h1>Zoeken</h1>
+
+<form action="/search" method="get" class="search-form">
+    <label for="search">Zoek een artikel:</label>
+    <input type="text" id="search" name="q" value="<%= q %>">
+    <button type="submit">Search</button>
+</form>
+
+<% if (!q == "") { %>
+    <p>Geen artikels gevonden voor "<%= q %>".</p>
+<% } %>
+
+<% for (let article of articles) { %>
+    <article>
+        <span class="topic"><%= article.topic %></span>
+        <h2><%= article.title %></h2>
+        <p><%= article.content %></p>
+    </article>
+<% } %>
+
+
+<%- include("partials/footer") %>
